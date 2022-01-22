@@ -8,6 +8,7 @@ namespace Business.IO.Subject
 {
     public class SubjectOutPut
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; }
         public decimal Average { get; set; }

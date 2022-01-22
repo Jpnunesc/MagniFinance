@@ -73,11 +73,11 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMany([FromQuery] SubjectFilter _filter)
+        public async Task<IActionResult> GetMany()
         {
             try
             {
-                return Ok(await _service.GetMany(_filter));
+                return Ok(await _service.GetMany());
             }
             catch (Exception ex)
             {

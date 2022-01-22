@@ -2,6 +2,7 @@
 using Business.IO.Teacher;
 using Domain.Entitys;
 using Infra.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Infra.Repositories
         public async Task<IEnumerable<TeacherEntity>> GetFilter(TeacherFilter filter)
         {
             var query = DbSet as IQueryable<TeacherEntity>;
+            query = query.Include(x => x.Subject).AsNoTracking();
             if(filter.Status.HasValue)
             {
                 query = query.Where(x => x.Status == filter.Status);

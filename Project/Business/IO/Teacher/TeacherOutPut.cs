@@ -7,11 +7,13 @@ namespace Business.IO.Teacher
 {
    public class TeacherOutPut
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; }
         public DateTime BirthDate { get; set; }
         public decimal Remuneration { get; set; }
         public int IdSubject { get; set; }
         public SubjectOutPut Subject { get; set; }
+        public string NameSubject { get { return Subject != null ? Subject.Name : ""; } }
     }
 }

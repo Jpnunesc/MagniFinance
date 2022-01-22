@@ -26,6 +26,7 @@ namespace Business.Services
             {
                 return validate;
             }
+            _course.Status = true;
             var courseMap = _mapper.Map<CourseInput, CourseEntity>(_course);
             return new ReturnView() { Object = _mapper.Map<CourseEntity, CourseOutPut>(await _repository.Add(courseMap)), Message = "Operation performed successfully!", Status = true };
         }

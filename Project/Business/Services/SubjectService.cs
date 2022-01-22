@@ -26,6 +26,7 @@ namespace Business.Services
             {
                 return validate;
             }
+            _subject.Status = true;
             var subjectMap = _mapper.Map<SubjectInput, SubjectEntity>(_subject);
             return new ReturnView() { Object = _mapper.Map<SubjectEntity, SubjectOutPut>(await _repository.Add(subjectMap)), Message = "Operation performed successfully!", Status = true };
         }
@@ -65,9 +66,9 @@ namespace Business.Services
         {
             return new ReturnView() { Object = _mapper.Map<SubjectEntity, SubjectOutPut>(await _repository.Get(x=> x.Id == id)), Message = "Operation performed successfully!", Status = true };
         }
-        public async Task<ReturnView> GetMany(SubjectFilter _filter)
+        public async Task<ReturnView> GetMany()
         {
-            var list = _mapper.Map<IEnumerable<SubjectEntity>, IEnumerable<SubjectOutPut>>(await _repository.GetFilter(_filter));
+            var list = _mapper.Map<IEnumerable<SubjectEntity>, IEnumerable<SubjectOutPut>>(await _repository.GetMany(x => x.Status));
             return new ReturnView() { Object = list, Message = "Operation performed successfully!", Status = true };
         }
         public void Dispose()
