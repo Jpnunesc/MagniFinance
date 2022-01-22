@@ -1,6 +1,6 @@
 ﻿using Business.Interfaces.Services;
 using Business.IO;
-using Business.IO.Teacher;
+using Business.IO.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,20 +12,20 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/[controller]")]
 
-    public class TeacherControle : ControllerBase
+    public class CourseController : ControllerBase
     {
-        private ITeacherService _service;
+        private ICourseService _service;
 
-        public TeacherControle(ITeacherService service)
+        public CourseController(ICourseService service)
         {
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] TeacherInput _theacher)
+        public async Task<IActionResult> Post([FromBody] CourseInput _course)
         {
             try
             {
-                return Ok(await _service.Save(_theacher));
+                return Ok(await _service.Save(_course));
             }
             catch (Exception ex)
             {
@@ -34,11 +34,11 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] TeacherInput _theacher)
+        public async Task<IActionResult> Put([FromBody] CourseInput _course)
         {
             try
             {
-                return Ok(await _service.Edit(_theacher));
+                return Ok(await _service.Edit(_course));
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMany([FromQuery] TeacherFilter _filter)
+        public async Task<IActionResult> GetMany([FromQuery] CourseFilter _filter)
         {
             try
             {
