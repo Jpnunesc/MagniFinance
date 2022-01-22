@@ -1,0 +1,67 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-right">
+                        <button class="btn btn-primary" routerLink="../create"> Create
+                        </button>
+                    </div>
+                    <h5 class="title">List</h5>
+                </div>
+                <div class="card-body" *ngIf="data.length">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Birth date
+                                </th>
+                                <th>
+                                    Remuneration
+                                </th>
+                                <th>
+                                    Subject
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data">
+                                    <td>
+                                       {{item.name}}
+                                    </td>
+                                    <td>
+                                        {{item.birthDate | date}}
+                                    </td>
+                                    <td>
+                                        {{item.remuneration | currency}}
+                                    </td>
+                                    <td>
+                                        {{item.nameSubject}}
+                                    </td>
+                                    <td>
+                                        {{item.status ? 'active' : 'disabled'}}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-cornflowerblue" routerLink="../edit/{{item.id}}"><i class="now-ui-icons design-2_ruler-pencil"></i> Edit</button>
+                                        <button class="btn btn-secondary" routerLink="../detail/{{item.id}}"><i class="now-ui-icons travel_info"></i> Detail</button>
+                                        <button type="button" class="btn btn-danger" (click)="opemModal = true; idItemDelete = item.id"><i class="now-ui-icons ui-1_simple-remove"></i> Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <label *ngIf="!data.length">no records...</label>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal [opem]="opemModal" (cancel)="opemModal = false" (confirm)="deleteItem()"></app-modal>
