@@ -66,9 +66,9 @@ namespace Business.Services
         {
             return new ReturnView() { Object = _mapper.Map<SubjectEntity, SubjectOutPut>(await _repository.Get(x=> x.Id == id)), Message = "Operation performed successfully!", Status = true };
         }
-        public async Task<ReturnView> GetMany()
+        public async Task<ReturnView> GetFilter(SubjectFilter _filter)
         {
-            var list = _mapper.Map<IEnumerable<SubjectEntity>, IEnumerable<SubjectOutPut>>(await _repository.GetMany(x => x.Status));
+            var list = _mapper.Map<IEnumerable<SubjectEntity>, IEnumerable<SubjectOutPut>>(await _repository.GetFilter(_filter));
             return new ReturnView() { Object = list, Message = "Operation performed successfully!", Status = true };
         }
         public void Dispose()

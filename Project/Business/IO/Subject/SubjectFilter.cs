@@ -6,6 +6,7 @@ namespace Business.IO.Subject
 {
     public class SubjectFilter
     {
+        public int? IdCourse { get; set; }
         public bool? Status { get; set; }
         public string SortField { get; set; }
         public string SortOrder { get; set; }

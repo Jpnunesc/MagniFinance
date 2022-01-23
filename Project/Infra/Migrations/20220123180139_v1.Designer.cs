@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(CodeContext))]
-    [Migration("20220122170244_vv1")]
-    partial class vv1
+    [Migration("20220123180139_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,28 +52,35 @@ namespace Infra.Migrations
                         .HasColumnName("Id")
                         .UseIdentityColumn();
 
-                    b.Property<int>("IdStudent")
-                        .HasColumnType("int")
-                        .HasColumnName("IdStudent");
+                    b.Property<decimal?>("FistGrade")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("FistGrade");
 
-                    b.Property<int>("IdSubject")
-                        .HasColumnType("int")
-                        .HasColumnName("IdSubject");
+                    b.Property<decimal?>("Fourthgrade")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("Fourthgrade");
+
+                    b.Property<decimal?>("SecondGrade")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("SecondGrade");
 
                     b.Property<int?>("StudentEntityId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("StudentEntityId");
 
-                    b.Property<decimal>("StudentGrade")
+                    b.Property<int?>("SubjectEntityId")
+                        .HasColumnType("int")
+                        .HasColumnName("SubjectEntityId");
+
+                    b.Property<decimal?>("ThirdGrade")
                         .HasColumnType("decimal(18,2)")
-                        .HasColumnName("StudentGrade");
+                        .HasColumnName("ThirdGrade");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdStudent");
-
-                    b.HasIndex("IdSubject");
-
                     b.HasIndex("StudentEntityId");
+
+                    b.HasIndex("SubjectEntityId");
 
                     b.ToTable("Grade");
                 });
@@ -90,9 +97,6 @@ namespace Infra.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("BirthDate");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdCourse")
                         .HasColumnType("int")
                         .HasColumnName("IdCourse");
@@ -103,23 +107,13 @@ namespace Infra.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("Name");
 
-                    b.Property<int>("Registration")
-                        .HasMaxLength(9)
-                        .HasColumnType("int")
-                        .HasColumnName("Registration");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("Status");
 
-                    b.Property<int?>("SubjectEntityId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("SubjectEntityId");
+                    b.HasIndex("IdCourse");
 
                     b.ToTable("Student");
                 });
@@ -198,20 +192,14 @@ namespace Infra.Migrations
             modelBuilder.Entity("Domain.Entitys.GradeEntity", b =>
                 {
                     b.HasOne("Domain.Entitys.StudentEntity", "Student")
-                        .WithMany()
-                        .HasForeignKey("IdStudent")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Grades")
+                        .HasForeignKey("StudentEntityId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entitys.SubjectEntity", "Subject")
-                        .WithMany()
-                        .HasForeignKey("IdSubject")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entitys.StudentEntity", null)
                         .WithMany("Grades")
-                        .HasForeignKey("StudentEntityId");
+                        .HasForeignKey("SubjectEntityId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Student");
 
@@ -222,11 +210,9 @@ namespace Infra.Migrations
                 {
                     b.HasOne("Domain.Entitys.CourseEntity", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId");
-
-                    b.HasOne("Domain.Entitys.SubjectEntity", null)
-                        .WithMany("Students")
-                        .HasForeignKey("SubjectEntityId");
+                        .HasForeignKey("IdCourse")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
                 });
@@ -234,7 +220,7 @@ namespace Infra.Migrations
             modelBuilder.Entity("Domain.Entitys.SubjectEntity", b =>
                 {
                     b.HasOne("Domain.Entitys.CourseEntity", "Course")
-                        .WithMany("Subjects")
+                        .WithMany()
                         .HasForeignKey("IdCourse")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -253,11 +239,6 @@ namespace Infra.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("Domain.Entitys.CourseEntity", b =>
-                {
-                    b.Navigation("Subjects");
-                });
-
             modelBuilder.Entity("Domain.Entitys.StudentEntity", b =>
                 {
                     b.Navigation("Grades");
@@ -265,7 +246,7 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Domain.Entitys.SubjectEntity", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Grades");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,28 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-right">
+                        <button class="btn btn-secondary" [routerLink]="retunrUrl"> Return
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form">
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text"  formControlName="name" [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            <field-errors [control]="form.get('name')">
+                            </field-errors>
+                          </div>
+                          <button *ngIf="!disabled" type="submit" class="btn btn-primary" (click)="save()">Submit</button>
+                      </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

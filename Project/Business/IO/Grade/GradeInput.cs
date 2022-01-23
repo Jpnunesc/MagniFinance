@@ -6,8 +6,12 @@ namespace Business.IO.Grade
 {
    public class GradeInput
     {
-        public decimal StudentGrade { get; set; }
-        public int IdStudent { get; set; }
-        public int IdSubject { get; set; }
+        public int? Id { get; set; }
+        public decimal? FistGrade { get; set; }
+        public decimal? SecondGrade { get; set; }
+        public decimal? ThirdGrade { get; set; }
+        public decimal? Fourthgrade { get; set; }
+        public int StudentEntityId { get; set; }
+        public int SubjectEntityId { get; set; }
     }
 }

@@ -9,11 +9,10 @@ namespace Domain.Entitys
     {
         public string Name { get; set; }
         public bool Status { get; set; }
-        public int Registration { get; set; }
         public DateTime BirthDate { get; set; }
         public int IdCourse { get; set; }
-        public CourseEntity Course { get; set; }
-        public IEnumerable<GradeEntity> Grades { get; set; }
+        public  CourseEntity Course { get; set; }
+        public virtual ICollection<GradeEntity> Grades { get; set; }
 
     }
 }

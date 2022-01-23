@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistoricModalComponent } from './historic-modal.component';
+import { GradeFormComponent } from './grade-form.component';
 
-describe('HistoricModalComponent', () => {
-  let component: HistoricModalComponent;
-  let fixture: ComponentFixture<HistoricModalComponent>;
+describe('GradeFormComponent', () => {
+  let component: GradeFormComponent;
+  let fixture: ComponentFixture<GradeFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistoricModalComponent ]
+      declarations: [ GradeFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistoricModalComponent);
+    fixture = TestBed.createComponent(GradeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

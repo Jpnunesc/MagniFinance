@@ -1,9 +1,6 @@
-﻿using Domain.Entity;
-using Domain.Entitys;
+﻿using Domain.Entitys;
 using Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
-
-
 
 namespace Infra.Context
 {

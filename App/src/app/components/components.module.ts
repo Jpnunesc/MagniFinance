@@ -7,7 +7,6 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FieldErrorsComponent } from './field-errors/field-errors.component';
-import { HistoricModalComponent } from './modal/historic-modal/historic-modal.component';
 import { ModalComponent } from './modal/modal/modal.component';
 
 
@@ -25,7 +24,6 @@ import { ModalComponent } from './modal/modal/modal.component';
     NavbarComponent,
     SidebarComponent,
     FieldErrorsComponent,
-    HistoricModalComponent,
     ModalComponent
 
   ],
@@ -34,7 +32,6 @@ import { ModalComponent } from './modal/modal/modal.component';
     NavbarComponent,
     SidebarComponent,
     FieldErrorsComponent,
-    HistoricModalComponent,
     ModalComponent
 
   ]

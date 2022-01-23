@@ -32,7 +32,7 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Subject</label>
-                            <select *ngFor="let subject of listSubject" formControlName="idSubject" [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            <select formControlName="idSubject" [class]="disabled ? 'form-control disabled' : 'form-control'">
                               <option value="">select</option>
                               <option *ngFor="let item of listSubject"
                               value="{{item.id}}">

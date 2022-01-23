@@ -31,18 +31,13 @@ namespace Infra.Mappings
                     .HasColumnName("BirthDate")
                     .IsRequired();
 
-            builder.Property(t => t.Registration)
-                    .HasColumnName("Registration")
-                    .HasMaxLength(9)
-                    .IsRequired();
-
             builder.Property(t => t.IdCourse)
                     .HasColumnName("IdCourse")
                     .IsRequired();
 
-            builder.HasMany(c => c.Grades)
-                    .WithOne(x => x.Student)
-                    .HasForeignKey(x => x.IdStudent);
+            builder.HasOne(x => x.Course)
+                   .WithMany()
+                   .HasForeignKey(x => x.IdCourse);
 
         }
 

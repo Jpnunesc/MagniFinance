@@ -29,13 +29,17 @@ namespace Infra.Mappings
 
             builder.Property(t => t.IdCourse)
                     .HasColumnName("IdCourse")
-                    
+
                     .IsRequired();
 
             builder.Property(t => t.Average)
                    .HasColumnName("Average")
                     .HasMaxLength(10)
                    .IsRequired();
+
+            builder.HasOne(x => x.Course)
+                   .WithMany()
+                  .HasForeignKey(x => x.IdCourse);
 
         }
 

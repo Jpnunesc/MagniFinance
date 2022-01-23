@@ -13,6 +13,11 @@ import { TeacherFormComponent } from './teacher/teacher-form/teacher-form.compon
 import { TeacherListComponent } from './teacher/teacher-list/teacher-list.component';
 import { SubjectListComponent } from './subject/subject-list/subject-list.component';
 import { SubjectFormComponent } from './subject/subject-form/subject-form.component';
+import { CourseFormComponent } from './course/course-form/course-form.component';
+import { CourseListComponent } from './course/course-list/course-list.component';
+import { StudentFormComponent } from './student/student-form/student-form.component';
+import { StudentListComponent } from './student/student-list/student-list.component';
+import { GradeFormComponent } from './grade/grade-form/grade-form.component';
 
 
 @NgModule({
@@ -32,7 +37,12 @@ import { SubjectFormComponent } from './subject/subject-form/subject-form.compon
     TeacherFormComponent,
     TeacherListComponent,
     SubjectListComponent,
-    SubjectFormComponent
+    SubjectFormComponent,
+    CourseFormComponent,
+    CourseListComponent,
+    StudentFormComponent,
+    StudentListComponent,
+    GradeFormComponent,
   ]
 })
 

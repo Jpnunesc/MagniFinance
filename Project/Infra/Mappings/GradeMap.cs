@@ -18,24 +18,35 @@ namespace Infra.Mappings
                  .HasColumnName("Id")
                  .ValueGeneratedOnAdd();
 
-            builder.Property(t => t.StudentGrade)
-                .HasColumnName("StudentGrade");
+            builder.Property(t => t.FistGrade)
+                  .HasColumnName("FistGrade");
 
-            builder.Property(t => t.IdStudent)
-                   .HasColumnName("IdStudent")
-                    .IsRequired();
+            builder.Property(t => t.SecondGrade)
+                   .HasColumnName("SecondGrade");
 
-            builder.Property(t => t.IdSubject)
-                    .HasColumnName("IdSubject")
-                    .IsRequired();
+            builder.Property(t => t.ThirdGrade)
+                    .HasColumnName("ThirdGrade");
+
+            builder.Property(t => t.Fourthgrade)
+                   .HasColumnName("Fourthgrade");
+
+            builder.Property(t => t.SubjectEntityId)
+                   .HasColumnName("SubjectEntityId");
+
+            builder.Property(t => t.StudentEntityId)
+                    .HasColumnName("StudentEntityId");
 
             builder.HasOne(x => x.Student)
-                    .WithMany()
-                    .HasForeignKey(x => x.IdStudent);
+                    .WithMany(c => c.Grades)
+                    .HasForeignKey(x => x.StudentEntityId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Subject)
-                    .WithMany()
-                    .HasForeignKey(x => x.IdSubject);
+                    .WithMany(c => c.Grades)
+                    .HasForeignKey(x => x.SubjectEntityId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
         }
 
     }

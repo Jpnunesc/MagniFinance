@@ -13,22 +13,26 @@ namespace CrossCutting.IoC.Config
         public static IServiceCollection Registered { get; private set; }
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddScoped<ITokenService, TokenService>();
 
-            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
 
-            services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
 
-            services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
+            services.AddScoped<ITeacherService, TeacherService>(); 
             services.AddScoped<ITeacherRepository, TeacherRepository>();
-            services.AddScoped<ITeacherService, TeacherService>();
 
+            services.AddScoped<IGradeService, GradeService>();
+            services.AddScoped<IGradeRepository, GradeRepository>();
 
         }
     }

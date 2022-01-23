@@ -12,6 +12,6 @@ namespace Domain.Entitys
         public DateTime BirthDate { get; set; }
         public decimal Remuneration { get; set; }
         public int IdSubject { get; set; }
-        public SubjectEntity Subject { get; set; }
+        public  SubjectEntity Subject { get; set; }
     }
 }

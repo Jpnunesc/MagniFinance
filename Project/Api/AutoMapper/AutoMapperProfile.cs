@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.IO.Course;
+using Business.IO.Grade;
 using Business.IO.Student;
 using Business.IO.Subject;
 using Business.IO.Teacher;
@@ -28,6 +29,9 @@ namespace Business.AutoMapper
 
             CreateMap<SubjectEntity, SubjectOutPut>(MemberList.None);
             CreateMap<SubjectInput, SubjectEntity>(MemberList.None);
+
+            CreateMap<GradeEntity, GradeOutPut>(MemberList.None);
+            CreateMap<GradeInput, GradeEntity>(MemberList.None);
 
 
         }

@@ -1,0 +1,101 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <form [formGroup]="formFilter" style="display: flow-root;">
+                        <div class="float-right">
+                            <button class="btn btn-secondary" [routerLink]="retunrUrl"> Return
+                            </button>
+                        </div>
+                        <div class="card-body" *ngIf="student">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            Registration
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Birth date
+                                        </th>
+                                        <th>
+                                            Name course
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {{student.registration}}
+                                             </td>
+                                            <td>
+                                               {{student.name}}
+                                            </td>
+                                            <td>
+                                                {{student.birthDate | date}}
+                                            </td>
+                                            <td>
+                                                {{student.nameCourse}}
+                                            </td>
+                                            <td>
+                                                {{student.status ? 'active' : 'disabled'}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <select formControlName="idSubject" (change)="getGrade()"
+                                [class]="disabled ? 'form-control disabled' : 'form-control'">
+                                <option value="">select</option>
+                                <option *ngFor="let item of listSubject" value="{{item.id}}">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                            <field-errors [control]="form.get('idSubject')">
+                            </field-errors>
+                        </div>
+                    </form>
+                </div>
+                <p *ngIf="!formFilter.get('idSubject').value" style="text-align: center;">select a subject...</p>
+                <div class="card-body" *ngIf="formFilter.get('idSubject').value">
+                    <form [formGroup]="form">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label class="form-label">First two months</label>
+                                <input type="number" formControlName="fistGrade"
+                                    [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-label">Second bimester</label>
+                                <input type="number" formControlName="secondGrade"
+                                    [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-label">Third bimester</label>
+                                <input type="number" formControlName="thirdGrade"
+                                    [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="form-label">Fourth bimester</label>
+                                <input type="number" formControlName="fourthgrade"
+                                    [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            </div>
+                          </div>
+                        <button *ngIf="!disabled" type="submit" class="btn btn-primary" (click)="save()">Submit</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

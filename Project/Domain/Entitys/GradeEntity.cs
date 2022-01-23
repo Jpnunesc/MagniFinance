@@ -7,10 +7,13 @@ namespace Domain.Entitys
 {
     public class GradeEntity : BaseEntity
     {
-        public decimal StudentGrade { get; set; }
-        public int IdStudent { get; set; }
-        public StudentEntity Student  { get; set; }
-        public int IdSubject { get; set; }
-        public SubjectEntity Subject { get; set; } 
+        public decimal? FistGrade { get; set; }
+        public decimal? SecondGrade { get; set; }
+        public decimal? ThirdGrade { get; set; }
+        public decimal? Fourthgrade { get; set; }
+        public int? StudentEntityId { get; set; }
+        public  StudentEntity Student  { get; set; }
+        public int? SubjectEntityId { get; set; }
+        public  SubjectEntity Subject { get; set; } 
     }
 }

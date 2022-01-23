@@ -6,6 +6,7 @@ namespace Business.IO.Student
 {
     public class StudentFilter
     {
+        public int? Id { get; set; }
         public bool? Status { get; set; }
         public string SortField { get; set; }
         public string SortOrder { get; set; }

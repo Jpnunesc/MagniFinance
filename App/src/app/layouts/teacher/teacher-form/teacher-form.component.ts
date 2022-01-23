@@ -24,12 +24,12 @@ export class TeacherFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      id:[''],
-      status:[''],
-      name: [{ value: ''}, [Validators.required]],
-      birthDate: [{ value: ''}, [Validators.required]],
-      remuneration: [{ value: ''}, [Validators.required]],
-      idSubject: [{ value: ''}, [Validators.required]]
+      id:[],
+      status:[],
+      name: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      remuneration: ['', [Validators.required]],
+      idSubject: ['', [Validators.required]]
     });
     const id = this.activeRoute.snapshot.params.id;
     if (id) {

@@ -27,9 +27,6 @@ namespace Infra.Mappings
                    .HasColumnName("Status")
                    .IsRequired();
 
-            builder.HasMany(c => c.Subjects)
-                 .WithOne(x => x.Course)
-                 .HasForeignKey(x => x.IdCourse);
         }
 
     }

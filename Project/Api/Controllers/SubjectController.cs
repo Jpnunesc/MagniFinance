@@ -46,7 +46,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -73,11 +73,11 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMany()
+        public async Task<IActionResult> GetFilter([FromQuery] SubjectFilter _filter)
         {
             try
             {
-                return Ok(await _service.GetMany());
+                return Ok(await _service.GetFilter(_filter));
             }
             catch (Exception ex)
             {

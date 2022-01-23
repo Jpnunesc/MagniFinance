@@ -10,6 +10,6 @@ namespace Business.Interfaces.Services
         Task<ReturnView> Edit(SubjectInput _student);
         Task<ReturnView> Delete(int id);
         Task<ReturnView> Get(int id);
-        Task<ReturnView> GetMany();
+        Task<ReturnView> GetFilter(SubjectFilter _filter);
     }
 }

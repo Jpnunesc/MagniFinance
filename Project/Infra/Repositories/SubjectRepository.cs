@@ -2,6 +2,7 @@
 using Business.IO.Subject;
 using Domain.Entitys;
 using Infra.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,11 +17,20 @@ namespace Infra.Repositories
         public async Task<IEnumerable<SubjectEntity>> GetFilter(SubjectFilter filter)
         {
             var query = DbSet as IQueryable<SubjectEntity>;
+            query = query.Include(x => x.Course).AsNoTracking();
             if(filter.Status.HasValue)
             {
                 query = query.Where(x => x.Status == filter.Status);
             }
-            return await Task.Run(() => query.ToList());
+            return await query.Select(x => new SubjectEntity 
+            { 
+                Id = x.Id, 
+                Course = x.Course, 
+                IdCourse = x.IdCourse,
+                Status = x.Status,
+                Average = x.Average,
+                Name = x.Name 
+            }).ToListAsync();
         }
     }
 }

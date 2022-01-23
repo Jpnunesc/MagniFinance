@@ -1,1 +1,46 @@
-<p>subject-form works!</p>
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-right">
+                        <button class="btn btn-secondary" [routerLink]="retunrUrl"> Return
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form">
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text"  formControlName="name" [class]="disabled ? 'form-control disabled' : 'form-control'">
+                            <field-errors [control]="form.get('name')">
+                            </field-errors>
+                          </div>
+                          <div class="mb-3">
+                                <label class="form-label">Average</label>
+                                <input type="number" formControlName="average" [class]="disabled ? 'form-control disabled' : 'form-control'">
+                                <field-errors [control]="form.get('average')">
+                                </field-errors>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Course</label>
+                            <select formControlName="idCourse" [class]="disabled ? 'form-control disabled' : 'form-control'">
+                              <option value="">select</option>
+                              <option *ngFor="let item of listCourse"
+                              value="{{item.id}}">
+                              {{item.name}}
+                          </option>
+                            </select>
+                            <field-errors [control]="form.get('idCourse')">
+                            </field-errors>
+                          </div>
+                          <button *ngIf="!disabled" type="submit" class="btn btn-primary" (click)="save()">Submit</button>
+                      </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
