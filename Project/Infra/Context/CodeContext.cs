@@ -1,6 +1,8 @@
 ﻿using Domain.Entitys;
 using Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Globalization;
 
 namespace Infra.Context
 {
@@ -29,6 +31,54 @@ namespace Infra.Context
             new CourseMap(modelBuilder.Entity<CourseEntity>());
             new GradeMap(modelBuilder.Entity<GradeEntity>());
 
+            modelBuilder.Entity<CourseEntity>().HasData(
+               new CourseEntity
+               {
+                   Id = 1,
+                   Name = "Information systems",
+                   Status = true
+               });
+
+            modelBuilder.Entity<SubjectEntity>().HasData(
+                new SubjectEntity
+                {
+                     Id = 1,
+                     IdCourse = 1,
+                     Average = 8,
+                     Name = "Eng. Software",
+                     Status = true
+                });
+
+            modelBuilder.Entity<TeacherEntity>().HasData(
+                 new TeacherEntity
+                 {
+                     Id = 1,
+                     Name = "João Paulo Costa",
+                     Remuneration = 20000,
+                     BirthDate = new DateTime(new DateTime(1994, 03, 08, 00, 00, 0, new CultureInfo("en-US", false).Calendar).Ticks),
+                     IdSubject = 1,
+                     Status = true
+                 });
+            modelBuilder.Entity<StudentEntity>().HasData(
+                 new StudentEntity
+                 {
+                     Id = 1,
+                     Name = "Pedro Luciano",
+                     Status = true,
+                     BirthDate = new DateTime(new DateTime(1998, 05, 08, 00, 00, 0, new CultureInfo("en-US", false).Calendar).Ticks),
+                     IdCourse = 1
+                 });
+            modelBuilder.Entity<GradeEntity>().HasData(
+                 new GradeEntity
+                 {
+                     Id = 1,
+                     StudentEntityId = 1,
+                     SubjectEntityId = 1,
+                     FistGrade = 7,
+                     SecondGrade = 8,
+                     ThirdGrade = 9,
+                     Fourthgrade = 9
+                 });
         }
     }
 }

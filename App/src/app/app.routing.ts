@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from './components/auth/auth.guard';
-import { LoginComponent } from './usuario/login/login.component';
+import { LoginComponent } from './user/login/login.component';
 
 const routes: Routes = [
   {

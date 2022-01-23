@@ -118,6 +118,31 @@ namespace Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Course",
+                columns: new[] { "Id", "Name", "Status" },
+                values: new object[] { 1, "Information systems", true });
+
+            migrationBuilder.InsertData(
+                table: "Student",
+                columns: new[] { "Id", "BirthDate", "IdCourse", "Name", "Status" },
+                values: new object[] { 1, new DateTime(1998, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Pedro Luciano", true });
+
+            migrationBuilder.InsertData(
+                table: "Subject",
+                columns: new[] { "Id", "Average", "IdCourse", "Name", "Staus" },
+                values: new object[] { 1, 8m, 1, "Eng. Software", true });
+
+            migrationBuilder.InsertData(
+                table: "Grade",
+                columns: new[] { "Id", "FistGrade", "Fourthgrade", "SecondGrade", "StudentEntityId", "SubjectEntityId", "ThirdGrade" },
+                values: new object[] { 1, 7m, 9m, 8m, 1, 1, 9m });
+
+            migrationBuilder.InsertData(
+                table: "Teacher",
+                columns: new[] { "Id", "BirthDate", "IdSubject", "Name", "Remuneration", "Status" },
+                values: new object[] { 1, new DateTime(1994, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "João Paulo Costa", 20000m, true });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Grade_StudentEntityId",
                 table: "Grade",

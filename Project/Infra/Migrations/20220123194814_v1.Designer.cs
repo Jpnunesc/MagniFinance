@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(CodeContext))]
-    [Migration("20220123180139_v1")]
+    [Migration("20220123194814_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,14 @@ namespace Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Course");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Information systems",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entitys.GradeEntity", b =>
@@ -83,6 +91,18 @@ namespace Infra.Migrations
                     b.HasIndex("SubjectEntityId");
 
                     b.ToTable("Grade");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FistGrade = 7m,
+                            Fourthgrade = 9m,
+                            SecondGrade = 8m,
+                            StudentEntityId = 1,
+                            SubjectEntityId = 1,
+                            ThirdGrade = 9m
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entitys.StudentEntity", b =>
@@ -116,6 +136,16 @@ namespace Infra.Migrations
                     b.HasIndex("IdCourse");
 
                     b.ToTable("Student");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDate = new DateTime(1998, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdCourse = 1,
+                            Name = "Pedro Luciano",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entitys.SubjectEntity", b =>
@@ -150,6 +180,16 @@ namespace Infra.Migrations
                     b.HasIndex("IdCourse");
 
                     b.ToTable("Subject");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Average = 8m,
+                            IdCourse = 1,
+                            Name = "Eng. Software",
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entitys.TeacherEntity", b =>
@@ -187,6 +227,17 @@ namespace Infra.Migrations
                     b.HasIndex("IdSubject");
 
                     b.ToTable("Teacher");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDate = new DateTime(1994, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IdSubject = 1,
+                            Name = "João Paulo Costa",
+                            Remuneration = 20000m,
+                            Status = true
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entitys.GradeEntity", b =>

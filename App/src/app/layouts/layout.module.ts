@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LayoutRoutes } from './layout.routing';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from '../usuario/login/login.component';
+import { LoginComponent } from '../user/login/login.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { UsuarioComponent } from '../usuario/usuario.component';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TeacherFormComponent } from './teacher/teacher-form/teacher-form.component';
@@ -18,6 +17,7 @@ import { CourseListComponent } from './course/course-list/course-list.component'
 import { StudentFormComponent } from './student/student-form/student-form.component';
 import { StudentListComponent } from './student/student-list/student-list.component';
 import { GradeFormComponent } from './grade/grade-form/grade-form.component';
+import { UserComponent } from '../user/user.component';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { GradeFormComponent } from './grade/grade-form/grade-form.component';
     FormsModule
   ],
   declarations: [
-    UsuarioComponent,
+    UserComponent,
     LoginComponent,
     AdminLayoutComponent,
     TeacherFormComponent,
