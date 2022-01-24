@@ -17,12 +17,19 @@ namespace Infra.Repositories
         public async Task<IEnumerable<TeacherEntity>> GetFilter(TeacherFilter filter)
         {
             var query = DbSet as IQueryable<TeacherEntity>;
-            query = query.Include(x => x.Subject).AsNoTracking();
+            query = query.Include(x => x.Subjects).AsNoTracking();
             if(filter.Status.HasValue)
             {
                 query = query.Where(x => x.Status == filter.Status);
             }
-            return await Task.Run(() => query.ToList());
+            return await query.Select(x => new TeacherEntity
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Status = x.Status,
+                BirthDate = x.BirthDate,
+                Remuneration = x.Remuneration
+            }).ToListAsync();
         }
     }
 }

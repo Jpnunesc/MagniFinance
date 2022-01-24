@@ -35,13 +35,9 @@ namespace Infra.Mappings
                    .HasColumnName("Remuneration")
                    .IsRequired();
 
-            builder.Property(t => t.IdSubject)
-                    .HasColumnName("IdSubject")
-                    .IsRequired();
-
-            builder.HasOne(x => x.Subject)
-                   .WithMany()
-                   .HasForeignKey(x => x.IdSubject);
+            builder.HasMany(x => x.Subjects)
+                   .WithOne(x => x.Teacher)
+                   .HasForeignKey(x => x.TeacherEntityId).OnDelete(DeleteBehavior.Cascade);
         }
 
     }

@@ -13,7 +13,6 @@ namespace Business.IO.Teacher
         public DateTime BirthDate { get; set; }
         public decimal Remuneration { get; set; }
         public int IdSubject { get; set; }
-        public SubjectOutPut Subject { get; set; }
-        public string NameSubject { get { return Subject != null ? Subject.Name : ""; } }
+        public List<SubjectOutPut> Subjects { get; set; }
     }
 }

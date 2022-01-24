@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: '**',
     canActivate: [AuthGuard],
-    redirectTo: 'teacher/list'
+    redirectTo: 'student/list'
   }
 ];
 

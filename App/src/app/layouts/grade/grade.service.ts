@@ -9,14 +9,31 @@ const url = `${environment.URL}/grade`;
 @Injectable({
   providedIn: 'root'
 })
+
 export class GradeService extends StandardService<any>  {
   constructor(
     protected http: HttpClient) {
     super(http, url, true)
   }
-  getByStudentSubject(filter: any): Observable<any> {
+  
+  getByStudentSubject(filter: any): Observable<ReturnView> {
     const params = new HttpParams().set('idSubject', filter.idSubject.toString())
                                    .set('idStudent', filter.idStudent.toString());
-    return this.http.get(this.url, { params });
+    return this.http.get<ReturnView>(this.url, { params });
   }
+}
+export interface ReturnView {
+  status: boolean;
+  object: GradeView[];
+  message: string;
+}
+export interface GradeView {
+    fistGrade: any;
+    secondGrade: any;
+    thirdGrade: any;
+    fourthgrade: any;
+    studentEntityId:number; 
+    subjectEntityId: number;
+    subject: any;
+    
 }

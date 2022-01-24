@@ -44,7 +44,7 @@
                                         {{item.remuneration | currency}}
                                     </td>
                                     <td>
-                                        {{item.nameSubject}}
+                                       <p style="display: list-item;" *ngFor="let subject of item?.subjects">{{subject.name}}</p>
                                     </td>
                                     <td>
                                         {{item.status ? 'active' : 'disabled'}}

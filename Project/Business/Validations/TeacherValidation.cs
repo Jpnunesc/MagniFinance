@@ -13,8 +13,6 @@ namespace Business.Validations
               .NotEmpty().WithMessage("The {PropertyName} field must be provided");
             RuleFor(f => f.Remuneration)
              .NotEmpty().WithMessage("The {PropertyName} field must be provided");
-            RuleFor(f => f.IdSubject)
-                .NotEmpty().WithMessage("The Course field must be provided");
             RuleFor(f => f.BirthDate)
                  .NotEmpty().WithMessage("The birth date field must be provided");
         }

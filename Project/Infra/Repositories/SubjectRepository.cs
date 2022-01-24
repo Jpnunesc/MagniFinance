@@ -18,7 +18,8 @@ namespace Infra.Repositories
         {
             var query = DbSet as IQueryable<SubjectEntity>;
             query = query.Include(x => x.Course).AsNoTracking();
-            if(filter.Status.HasValue)
+            query = query.Include(x => x.Teacher).AsNoTracking();
+            if (filter.Status.HasValue)
             {
                 query = query.Where(x => x.Status == filter.Status);
             }
@@ -26,6 +27,7 @@ namespace Infra.Repositories
             { 
                 Id = x.Id, 
                 Course = x.Course, 
+                Teacher= x.Teacher,
                 IdCourse = x.IdCourse,
                 Status = x.Status,
                 Average = x.Average,

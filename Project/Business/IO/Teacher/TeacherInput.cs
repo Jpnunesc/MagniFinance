@@ -11,6 +11,5 @@ namespace Business.IO.Teacher
         public bool? Status { get; set; }
         public DateTime BirthDate { get; set; }
         public decimal Remuneration { get; set; }
-        public int? IdSubject { get; set; }
     }
 }

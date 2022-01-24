@@ -11,7 +11,6 @@ namespace Domain.Entitys
         public bool Status { get; set; }
         public DateTime BirthDate { get; set; }
         public decimal Remuneration { get; set; }
-        public int IdSubject { get; set; }
-        public  SubjectEntity Subject { get; set; }
+        public  virtual IEnumerable<SubjectEntity> Subjects { get; set; }
     }
 }

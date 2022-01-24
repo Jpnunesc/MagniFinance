@@ -11,6 +11,7 @@ namespace Business.IO.Subject
         public bool? Status { get; set; }
         public decimal? Average { get; set; }
         public int? IdCourse { get; set; }
+        public int? TeacherEntityId { get; set; }
 
     }
 }

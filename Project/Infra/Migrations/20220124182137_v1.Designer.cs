@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(CodeContext))]
-    [Migration("20220123194814_v1")]
+    [Migration("20220124182137_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,9 +175,15 @@ namespace Infra.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("Staus");
 
+                    b.Property<int>("TeacherEntityId")
+                        .HasColumnType("int")
+                        .HasColumnName("TeacherEntityId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdCourse");
+
+                    b.HasIndex("TeacherEntityId");
 
                     b.ToTable("Subject");
 
@@ -188,7 +194,35 @@ namespace Infra.Migrations
                             Average = 8m,
                             IdCourse = 1,
                             Name = "Eng. Software",
-                            Status = true
+                            Status = true,
+                            TeacherEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Average = 8m,
+                            IdCourse = 1,
+                            Name = "Mathematics",
+                            Status = true,
+                            TeacherEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Average = 8m,
+                            IdCourse = 1,
+                            Name = "Architecture",
+                            Status = true,
+                            TeacherEntityId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Average = 8m,
+                            IdCourse = 1,
+                            Name = "Banco de dados",
+                            Status = true,
+                            TeacherEntityId = 2
                         });
                 });
 
@@ -203,10 +237,6 @@ namespace Infra.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("BirthDate");
-
-                    b.Property<int>("IdSubject")
-                        .HasColumnType("int")
-                        .HasColumnName("IdSubject");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -224,8 +254,6 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSubject");
-
                     b.ToTable("Teacher");
 
                     b.HasData(
@@ -233,9 +261,16 @@ namespace Infra.Migrations
                         {
                             Id = 1,
                             BirthDate = new DateTime(1994, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdSubject = 1,
                             Name = "João Paulo Costa",
                             Remuneration = 20000m,
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDate = new DateTime(1993, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Paulo Henrique",
+                            Remuneration = 25000m,
                             Status = true
                         });
                 });
@@ -244,13 +279,11 @@ namespace Infra.Migrations
                 {
                     b.HasOne("Domain.Entitys.StudentEntity", "Student")
                         .WithMany("Grades")
-                        .HasForeignKey("StudentEntityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("StudentEntityId");
 
                     b.HasOne("Domain.Entitys.SubjectEntity", "Subject")
                         .WithMany("Grades")
-                        .HasForeignKey("SubjectEntityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("SubjectEntityId");
 
                     b.Navigation("Student");
 
@@ -276,18 +309,15 @@ namespace Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("Domain.Entitys.TeacherEntity", b =>
-                {
-                    b.HasOne("Domain.Entitys.SubjectEntity", "Subject")
-                        .WithMany()
-                        .HasForeignKey("IdSubject")
+                    b.HasOne("Domain.Entitys.TeacherEntity", "Teacher")
+                        .WithMany("Subjects")
+                        .HasForeignKey("TeacherEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Subject");
+                    b.Navigation("Course");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Domain.Entitys.StudentEntity", b =>
@@ -298,6 +328,11 @@ namespace Infra.Migrations
             modelBuilder.Entity("Domain.Entitys.SubjectEntity", b =>
                 {
                     b.Navigation("Grades");
+                });
+
+            modelBuilder.Entity("Domain.Entitys.TeacherEntity", b =>
+                {
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }

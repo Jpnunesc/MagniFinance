@@ -19,6 +19,7 @@ export class GradeFormComponent implements OnInit {
   retunrUrl = '../../../../student/list'
   listSubject = [];
   student = [];
+  teacher: any;
   constructor(private fb: FormBuilder,
     private toastr: ToastrService,
     private subjectService: SubjectService,
@@ -35,6 +36,7 @@ export class GradeFormComponent implements OnInit {
       thirdGrade: [],
       fourthgrade: [],
       subjectEntityId: [],
+      gradeAvarage: [],
       studentEntityId: [this.activeRoute.snapshot.params.idStudent],
     });
     this.formFilter = this.fb.group({
@@ -46,7 +48,16 @@ export class GradeFormComponent implements OnInit {
     const filter = { idSubject: this.formFilter.get('idSubject').value, idStudent: this.activeRoute.snapshot.params.idStudent }
     this.gradeService.getByStudentSubject(filter).subscribe(data => {
       if (data && data.status) {
-        this.form.patchValue(data.object[0]);
+        if(data.object) {
+          this.form.patchValue(data.object[0]);
+        } else {
+          this.form.reset();
+        }
+        if(data.object[0] && data.object[0]) {
+          this.teacher = data.object[0].subject.teacher
+        } else {
+          this.teacher = null;
+        }
       }
     }), (error) => {
       console.log(error)
@@ -72,6 +83,14 @@ export class GradeFormComponent implements OnInit {
       this.toastr.error('Internal error!');
       console.log(error);
     }
+  }
+  calculateAverage() {
+    this.form.get('gradeAvarage').setValue(
+      ( Number(this.form.get('fistGrade').value ? this.form.get('fistGrade').value : 0)
+      + Number(this.form.get('secondGrade').value ? this.form.get('secondGrade').value : 0)
+      + Number(this.form.get('thirdGrade').value ? this.form.get('thirdGrade').value : 0)
+      + Number(this.form.get('fourthgrade').value ? this.form.get('fourthgrade').value : 0))
+      / 4);
   }
   save() {
     this.form.get('subjectEntityId').setValue(this.formFilter.get('idSubject').value)

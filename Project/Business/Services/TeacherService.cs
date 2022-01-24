@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Business.Extensions;
 using Business.Interfaces.Repositories;
 using Business.Interfaces.Services;
 using Business.IO;
+using Business.IO.Subject;
 using Business.IO.Teacher;
 using Business.Validations;
 using Domain.Entitys;
@@ -14,10 +16,12 @@ namespace Business.Services
     {
         private readonly IMapper _mapper;
         private readonly ITeacherRepository _repository;
-        public TeacherService(IMapper mapper, ITeacherRepository repository)
+        private readonly ISubjectRepository _subjectRepository;
+        public TeacherService(IMapper mapper, ITeacherRepository repository, ISubjectRepository subjectRepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _subjectRepository = subjectRepository;
         }
         public async Task<ReturnView> Save(TeacherInput _teacher)
         {
@@ -68,8 +72,13 @@ namespace Business.Services
         }
         public async Task<ReturnView> GetMany(TeacherFilter _filter)
         {
-            var list = _mapper.Map<IEnumerable<TeacherEntity>, IEnumerable<TeacherOutPut>>(await _repository.GetFilter(_filter));
-            return new ReturnView() { Object = list, Message = "Operation performed successfully!", Status = true };
+            var listFilter = await _repository.GetFilter(_filter);
+            foreach (var item in listFilter)
+            {
+                item.Subjects = _subjectRepository.GetMany(s => s.TeacherEntityId == item.Id).Result;
+            }
+            var listReturn = _mapper.Map<IEnumerable<TeacherEntity>, IEnumerable<TeacherOutPut>>(listFilter);
+            return new ReturnView() { Object = listReturn, Message = "Operation performed successfully!", Status = true };
         }
         public void Dispose()
         {

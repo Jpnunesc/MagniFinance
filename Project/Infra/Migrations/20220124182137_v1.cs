@@ -22,6 +22,22 @@ namespace Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teacher",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Remuneration = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teacher", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Student",
                 columns: table => new
                 {
@@ -52,7 +68,8 @@ namespace Infra.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Staus = table.Column<bool>(type: "bit", nullable: false),
                     Average = table.Column<decimal>(type: "decimal(18,2)", maxLength: 10, nullable: false),
-                    IdCourse = table.Column<int>(type: "int", nullable: false)
+                    IdCourse = table.Column<int>(type: "int", nullable: false),
+                    TeacherEntityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,6 +78,12 @@ namespace Infra.Migrations
                         name: "FK_Subject_Course_IdCourse",
                         column: x => x.IdCourse,
                         principalTable: "Course",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subject_Teacher_TeacherEntityId",
+                        column: x => x.TeacherEntityId,
+                        principalTable: "Teacher",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -95,33 +118,20 @@ namespace Infra.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Teacher",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Remuneration = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IdSubject = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teacher", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teacher_Subject_IdSubject",
-                        column: x => x.IdSubject,
-                        principalTable: "Subject",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Course",
                 columns: new[] { "Id", "Name", "Status" },
                 values: new object[] { 1, "Information systems", true });
+
+            migrationBuilder.InsertData(
+                table: "Teacher",
+                columns: new[] { "Id", "BirthDate", "Name", "Remuneration", "Status" },
+                values: new object[] { 1, new DateTime(1994, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "João Paulo Costa", 20000m, true });
+
+            migrationBuilder.InsertData(
+                table: "Teacher",
+                columns: new[] { "Id", "BirthDate", "Name", "Remuneration", "Status" },
+                values: new object[] { 2, new DateTime(1993, 6, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paulo Henrique", 25000m, true });
 
             migrationBuilder.InsertData(
                 table: "Student",
@@ -130,18 +140,19 @@ namespace Infra.Migrations
 
             migrationBuilder.InsertData(
                 table: "Subject",
-                columns: new[] { "Id", "Average", "IdCourse", "Name", "Staus" },
-                values: new object[] { 1, 8m, 1, "Eng. Software", true });
+                columns: new[] { "Id", "Average", "IdCourse", "Name", "Staus", "TeacherEntityId" },
+                values: new object[,]
+                {
+                    { 1, 8m, 1, "Eng. Software", true, 1 },
+                    { 2, 8m, 1, "Mathematics", true, 1 },
+                    { 3, 8m, 1, "Architecture", true, 1 },
+                    { 4, 8m, 1, "Banco de dados", true, 2 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Grade",
                 columns: new[] { "Id", "FistGrade", "Fourthgrade", "SecondGrade", "StudentEntityId", "SubjectEntityId", "ThirdGrade" },
                 values: new object[] { 1, 7m, 9m, 8m, 1, 1, 9m });
-
-            migrationBuilder.InsertData(
-                table: "Teacher",
-                columns: new[] { "Id", "BirthDate", "IdSubject", "Name", "Remuneration", "Status" },
-                values: new object[] { 1, new DateTime(1994, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "João Paulo Costa", 20000m, true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grade_StudentEntityId",
@@ -164,18 +175,15 @@ namespace Infra.Migrations
                 column: "IdCourse");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teacher_IdSubject",
-                table: "Teacher",
-                column: "IdSubject");
+                name: "IX_Subject_TeacherEntityId",
+                table: "Subject",
+                column: "TeacherEntityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Grade");
-
-            migrationBuilder.DropTable(
-                name: "Teacher");
 
             migrationBuilder.DropTable(
                 name: "Student");
@@ -185,6 +193,9 @@ namespace Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "Course");
+
+            migrationBuilder.DropTable(
+                name: "Teacher");
         }
     }
 }

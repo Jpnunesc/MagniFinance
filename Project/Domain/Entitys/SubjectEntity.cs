@@ -10,6 +10,9 @@ namespace Domain.Entitys
         public decimal Average { get; set; }
         public int IdCourse { get; set; }
         public  CourseEntity Course { get; set; }
+        public int TeacherEntityId { get; set; }
+        public virtual TeacherEntity Teacher { get; set; }
         public virtual ICollection<GradeEntity> Grades { get; set; }
+
     }
 }

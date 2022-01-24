@@ -39,15 +39,6 @@ namespace Infra.Context
                    Status = true
                });
 
-            modelBuilder.Entity<SubjectEntity>().HasData(
-                new SubjectEntity
-                {
-                     Id = 1,
-                     IdCourse = 1,
-                     Average = 8,
-                     Name = "Eng. Software",
-                     Status = true
-                });
 
             modelBuilder.Entity<TeacherEntity>().HasData(
                  new TeacherEntity
@@ -56,9 +47,58 @@ namespace Infra.Context
                      Name = "João Paulo Costa",
                      Remuneration = 20000,
                      BirthDate = new DateTime(new DateTime(1994, 03, 08, 00, 00, 0, new CultureInfo("en-US", false).Calendar).Ticks),
-                     IdSubject = 1,
                      Status = true
-                 });
+                 },
+                 new TeacherEntity
+                 {
+                     Id = 2,
+                     Name = "Paulo Henrique",
+                     Remuneration = 25000,
+                     BirthDate = new DateTime(new DateTime(1993, 06, 08, 00, 00, 0, new CultureInfo("en-US", false).Calendar).Ticks),
+                     Status = true
+                 }
+                 );
+
+            modelBuilder.Entity<SubjectEntity>().HasData(
+                 new SubjectEntity
+                 {
+                     Id = 1,
+                     IdCourse = 1,
+                     Average = 8,
+                     Name = "Eng. Software",
+                     TeacherEntityId = 1,
+                     Status = true
+                 },
+                 new SubjectEntity
+                 {
+                     Id = 2,
+                     IdCourse = 1,
+                     Average = 8,
+                     Name = "Mathematics",
+                     TeacherEntityId = 1,
+                     Status = true
+                 },
+                 new SubjectEntity
+                 {
+                     Id = 3,
+                     IdCourse = 1,
+                     Average = 8,
+                     Name = "Architecture",
+                     TeacherEntityId = 1,
+                     Status = true
+                 },
+                 new SubjectEntity
+                 {
+                     Id = 4,
+                     IdCourse = 1,
+                     Average = 8,
+                     Name = "Banco de dados",
+                     TeacherEntityId = 2,
+                     Status = true
+                 }
+
+                 );
+
             modelBuilder.Entity<StudentEntity>().HasData(
                  new StudentEntity
                  {
@@ -68,6 +108,7 @@ namespace Infra.Context
                      BirthDate = new DateTime(new DateTime(1998, 05, 08, 00, 00, 0, new CultureInfo("en-US", false).Calendar).Ticks),
                      IdCourse = 1
                  });
+
             modelBuilder.Entity<GradeEntity>().HasData(
                  new GradeEntity
                  {

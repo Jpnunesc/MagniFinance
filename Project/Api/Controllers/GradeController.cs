@@ -77,7 +77,8 @@ namespace Api.Controllers
         {
             try
             {
-                return Ok(await _service.GetMany(_filter));
+                var el = await _service.GetMany(_filter);
+                return Ok(el);
             }
             catch (Exception ex)
             {

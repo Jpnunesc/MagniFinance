@@ -38,13 +38,11 @@ namespace Infra.Mappings
 
             builder.HasOne(x => x.Student)
                     .WithMany(c => c.Grades)
-                    .HasForeignKey(x => x.StudentEntityId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .HasForeignKey(x => x.StudentEntityId);
 
             builder.HasOne(x => x.Subject)
                     .WithMany(c => c.Grades)
-                    .HasForeignKey(x => x.SubjectEntityId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .HasForeignKey(x => x.SubjectEntityId);
 
 
         }

@@ -29,8 +29,11 @@ namespace Infra.Mappings
 
             builder.Property(t => t.IdCourse)
                     .HasColumnName("IdCourse")
-
                     .IsRequired();
+
+            builder.Property(t => t.TeacherEntityId)
+                   .HasColumnName("TeacherEntityId")
+                   .IsRequired();
 
             builder.Property(t => t.Average)
                    .HasColumnName("Average")
@@ -40,6 +43,11 @@ namespace Infra.Mappings
             builder.HasOne(x => x.Course)
                    .WithMany()
                   .HasForeignKey(x => x.IdCourse);
+
+            builder.HasOne(x => x.Teacher)
+                   .WithMany(x => x.Subjects)
+                   .HasForeignKey(x => x.TeacherEntityId).OnDelete(DeleteBehavior.Cascade);
+
 
         }
 

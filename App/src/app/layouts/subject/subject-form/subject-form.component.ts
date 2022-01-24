@@ -16,9 +16,11 @@ export class SubjectFormComponent implements OnInit {
   disabled = false;
   retunrUrl = '../list'
   listCourse = [];
+  listTeacher = [];
   constructor(private fb: FormBuilder,
     private toastr: ToastrService,
     private courseService: CourseService,
+    private teacherService: TeacherService,
     private subjectService: SubjectService,
     public activeRoute: ActivatedRoute) { }
 
@@ -28,7 +30,8 @@ export class SubjectFormComponent implements OnInit {
       status:[],
       name: ['', [Validators.required]],
       average: ['', [Validators.required]],
-      idCourse: ['', [Validators.required]]
+      idCourse: ['', [Validators.required]],
+      teacherEntityId : ['', [Validators.required]]
     });
     const id = this.activeRoute.snapshot.params.id;
     if (id) {
@@ -37,6 +40,7 @@ export class SubjectFormComponent implements OnInit {
       this.getById(id);
     }
     this.getCourse();
+    this.getTeacher();
   }
   getById(id) {
     this.subjectService.httpGetId(id).subscribe(data => {
@@ -47,6 +51,19 @@ export class SubjectFormComponent implements OnInit {
       console.log(error);
     };
     ;
+  }
+  getTeacher() {
+    this.teacherService.httpGet().subscribe((data) => {
+      if (data && data.status) {
+        console.log(data.object);
+        this.listTeacher = data.object;
+      } else {
+        this.listTeacher = [];
+      }
+    }), (error) => {
+      this.toastr.error('Internal error!');
+      console.log(error);
+    }
   }
   getCourse() {
     this.courseService.httpGet().subscribe((data) => {
